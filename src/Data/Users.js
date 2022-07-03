@@ -12,5 +12,12 @@ const Users = [
         "password" : "User1",
         "email" : "Margtt@hotmail.com",
         "role" : "user"
+    },
+    {
+        "id" : "NymerC12",
+        "username" : "NymeriaC12",
+        "password" : "Nymeria12",
+        "email" : "Nymy@gmail.com",
+        "role" : "user"
     }
 ];

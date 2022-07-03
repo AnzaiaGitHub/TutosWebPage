@@ -2,13 +2,16 @@ const userEmail = document.getElementById("inputEmail");
 const userPass = document.getElementById("inputPassword");
 
 //Users is defined in src/Data/Users.js an array of Users (just test users, no database query)
-
+if(localStorage.getItem('user')!= null){
+    alert("User already logged in");
+    window.location= "home.html";
+}
 function login(){
     if(Users.filter((curUser)=>curUser.email.toUpperCase() === userEmail.value.toUpperCase()).length == 1){
         let user = Users.filter((curUser)=> curUser.email.toUpperCase() == userEmail.value.toUpperCase())[0];
-        console.log(user);
         if(user.password === userPass.value){
             alert("Log In.");
+            localStorage.setItem('user',JSON.stringify(user.id));
         }else{
             alert("Contraseña o email erroneo, verifica los datos e intentalo de nuevo.");
         }
