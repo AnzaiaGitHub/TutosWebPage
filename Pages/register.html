@@ -11,26 +11,26 @@
 </head>
 <body>
     <div class="container-sm">
-        <h3>Create an account</h3>
-        <form>
-            <div class="form-floating mb-3">
-                <label class="form-label" for="username">Username</label>
-                <input type="text" name="username" id="inputUsername" class="form-control" placeholder="CarlTJ24" required>
+        <h3>Crear una cuenta</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label" for="inputUsername">Username</label>
+                <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Carl123" required>
             </div>
-            <div class="form-floating mb-3">
-                <label class="form-label" for="email">Email address</label>
+            <div class="mb-3">
+                <label class="form-label" for="inputEmail">Email</label>
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="name@example.com" required>
             </div>
-            <div class="form-floating mb-3">    
-                <label class="form-label" for="password">Password</label>
+            <div class="mb-3">    
+                <label class="form-label" for="inputPassword">Contraseña</label>
                 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
             </div>
             <div class="form-check mb-3">    
-                <label class="form-check-label" for="userRole">Admin?</label>
-                <input type="checkbox" name="userRole" id="inputRole" class="form-check-label" required>
+                <input type="checkbox" name="userRole" id="inputRole" class="form-check-input">
+                <label class="form-check-label" for="inputRole">Cuenta de administrador</label>
             </div>
-            <div class="form-floating mb-3 btn-container">
-                <button class="btn btn-primary" type="submit">Register</button>
+            <div class="mb-3 btn-container">
+                <button class="btn btn-primary" type="submit">Crear cuenta</button>
                 <span>
                     Already have an account, try to <a href="login.html" class="btn-link">LogIn</a>
                 </span>

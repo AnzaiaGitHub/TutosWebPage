@@ -15,11 +15,5 @@ body{
 }
 .container-sm>h3{
     color: #004;
-    font-size: 3rem;
-}
-.container-sm>.btn-container{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: space-between;
+    font-size: 2rem;
 }
