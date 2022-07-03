@@ -1,0 +1,25 @@
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: URL("../src/img/TutosWp.jpg");
+    background-size:cover;
+}
+.container-sm{
+    backdrop-filter: blur(6px);
+    background-color: rgba(255,255,255,0.2);
+    box-shadow: 0px 2px 16px rgba(0,0,0,0.8);
+    max-width: 540px;
+    padding: 50px;
+    border-radius: 20px;
+}
+.container-sm>h1{
+    color: #fff;
+    font-size: 3rem;
+}
+.container-sm>.btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+}
