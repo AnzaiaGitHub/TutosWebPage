@@ -16,8 +16,15 @@ const Users = [
     {
         "id" : "NymerC12",
         "username" : "NymeriaC12",
-        "password" : "Nymeria12",
-        "email" : "Nymy@gmail.com",
+        "password" : "Sombrasconclara346",
+        "email" : "ClaraNym464@gmail.com",
+        "role" : "user"
+    },
+    {
+        "id" : "PlanFlAm",
+        "username" : "SummerMil",
+        "password" : "Sombrasconclara346",
+        "email" : "summerishere@hotmail.com",
         "role" : "user"
     }
 ];

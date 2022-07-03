@@ -10,8 +10,9 @@ function login(){
     if(Users.filter((curUser)=>curUser.email.toUpperCase() === userEmail.value.toUpperCase()).length == 1){
         let user = Users.filter((curUser)=> curUser.email.toUpperCase() == userEmail.value.toUpperCase())[0];
         if(user.password === userPass.value){
-            alert("Log In.");
             localStorage.setItem('user',JSON.stringify(user.id));
+            alert("Log In.");
+            window.location= "home.html";
         }else{
             alert("Contraseña o email erroneo, verifica los datos e intentalo de nuevo.");
         }

@@ -6,6 +6,7 @@ body{
     left: 0;
     overflow: hidden;
 }
+
 header{
     width: 100%;
     background-color: rgb(92, 112, 148);
@@ -30,22 +31,57 @@ header>div>input{
     width: 100%;
 }
 header>.searchcontainer{
-    height: 100%;
     width: 50%;
 }
-header>.img{
-    width: 20%;
+header>.logo h4{
+    width: auto;
+    margin-left: 20px;
 }
 
 main{
     height: 82vh;
+    width: 100%;
     position: relative;
     top: 0;
-    background-color:blue;
+    background-color:rgb(236, 225, 207);
+    overflow-y: auto;
 }
-/*
-tutos content
-*/
+#tutos-container{
+    width: 95%;
+    /* background-color: rgba(0,0,0,0.6); */
+    overflow-x: hidden;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+#tutos-container> .tuto-item{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 5px 5px;
+    background-color: #aaf;
+}
+#tutos-container> .tuto-item .username{
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+#tutos-container> .tuto-item .title{
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+#tutos-container> .tuto-item img{
+    max-height: 60vh;
+    max-width: 70vw;
+    width: fit-content;
+    margin: 5px 0;
+}
+#tutos-container> .tuto-item .description{
+    font-size: 1.3rem;
+    margin: 5px 0;
+}
 
 .bottom-navbar{
     height: 10vh;
