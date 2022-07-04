@@ -26,5 +26,19 @@ const Users = [
         "password" : "Sombrasconclara346",
         "email" : "summerishere@hotmail.com",
         "role" : "user"
+    },
+    {
+        "id" : "FelxNarj",
+        "username" : "Fiestas_y_mas",
+        "password" : "FeNaFyM",
+        "email" : "FNaranjo@yahoo.com",
+        "role" : "user"
+    },
+    {
+        "id" : "Platzi22",
+        "username" : "Platzi",
+        "password" : "Platzi2022*",
+        "email" : "Platzi@platzi.com",
+        "role" : "user"
     }
 ];

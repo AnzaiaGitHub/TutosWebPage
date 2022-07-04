@@ -1,16 +1,19 @@
 const tutosContainer = document.getElementById("tutos-container");
 const TutosList = Tutos;
-const tutoModal = document.getElementById('tuto-modal');
-var tutosShown = TutosList.filter((tt)=>tt.show == true);
-
+const tutoModal = document.getElementById("tuto-modal");
+const activeUser = Users.filter((us)=>us.id == JSON.parse(localStorage.getItem('user')))[0];
+var tutosShown = TutosList.filter((tt)=>tt.author == JSON.parse(localStorage.getItem('user')));
+document.getElementById("LogOut").addEventListener('click', LogOut);
 if(localStorage.getItem('user')==null){
-    alert("Tienes que iniciar sesión para visualizar las publicaciones.")
     window.location = "login.html";
+}else{
+    fillUserFields();
 }
 function showTutos(){
-    if(tutosShown.length==0)
-        alert("No hay Tutos publicados aún, se el primero en hacerlo");
-    else{
+    if(tutosShown.length==0){
+        console.log("No has publicado Tutos aún, hazlo en la pestaña del boton +");
+        console.log(localStorage.getItem('user'));
+    }else{
         //Hay tutos disponibles
         tutosContainer.innerHTML="";
         tutosShown.forEach(tuto => {
@@ -27,7 +30,6 @@ function showTutos(){
 }
 function openTuto(tutoid){
     let curTuto = tutosShown.filter((tt)=>tt.id == tutoid)[0];
-    alert('opening '+curTuto.id);
     let uDate = new Date(curTuto.uploadDate);
     let lUpdate = new Date(curTuto.lastUpdate);
     let tutoContent;
@@ -56,5 +58,13 @@ function openTuto(tutoid){
         <div id="closeModal" onclick="document.getElementById('tuto-modal').classList.toggle('modal-active')"><strong>X</strong></div>`;
     tutoModal.innerHTML=tutoStr;
     tutoModal.classList.toggle('modal-active');
+}
+function fillUserFields(){
+    document.getElementById("username").getElementsByTagName("p")[0].innerHTML = activeUser.username;
+    document.getElementById("email").getElementsByTagName("p")[0].innerHTML = activeUser.email;
+}
+function LogOut(){
+    localStorage.clear();
+    window.location="login.html";
 }
 window.addEventListener('load', showTutos);

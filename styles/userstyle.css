@@ -17,7 +17,7 @@ header{
     position: relative;
 }
 header>div{
-    max-width: 45%;
+    max-width: 75%;
     height: 100%;
     margin: 0 10px;
     display: flex;
@@ -25,10 +25,6 @@ header>div{
 }
 header>div>img{
     height: 90%;
-}
-header>div>input{
-    height: 80%;
-    width: 100%;
 }
 header>.searchcontainer{
     width: 50%;
@@ -46,6 +42,30 @@ main{
     background-color:rgb(236, 225, 207);
     overflow-y: auto;
 }
+#user-container>div{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 15px;
+    border-bottom: 1px solid gray;
+}
+#user-container>div>p{
+    font-size: 1.4rem;
+}
+#user-container>div>svg{
+    height: 80%;
+}
+#LogOut{
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s all ease-in;
+}
+#LogOut:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+
 .tuto-modal{
     display: none;
 }
@@ -92,6 +112,10 @@ main{
     cursor: pointer;
 }.tuto-modal>#closeModal:hover{color: blue}
 
+#userTutos{
+    border-bottom: none;
+    border-bottom: 1px dashed gray;
+}
 #tutos-container{
     width: 100%;
     /* background-color: rgba(0,0,0,0.6); */
