@@ -1,3 +1,35 @@
+<?php
+    $server = "localhost"; //127.0.0.1
+    $user = "root";
+    $pass = "";
+
+    try{
+        $connection = new PDO("mysql:host=$server;dbname=TutosWeb", $user, $pass);
+        $connection -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        if(isset($_POST['email'])){
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $sql = "SELECT `id` FROM `users` WHERE (`users`.`email` = '$email') AND (`users`.`password` = '$password');";
+            $Query = $connection-> prepare($sql);
+            $Query->execute();
+            $res = $Query->fetchAll();
+            if($res){
+                echo '<script type="text/javascript">
+                        localStorage.setItem("user",JSON.stringify('.json_encode($res).'[0].id));
+                        window.location = "home.php";
+                    </script>';
+            }else{
+                echo '<script type="text/javascript">
+                        alert("Email o Contraseña erróneos, verifica los datos e intenta de nuevo");
+                    </script>';
+            }
+        }
+    }catch(PDOException $err){
+        echo "We can't connect with the db<br>";
+        echo $err;
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +44,7 @@
 <body>
     <div class="container-sm">
         <h1>Tutos Share</h1>
-        <form>
+        <form id="login-form" method="post">
             <div class="mb-3">
                 <label class="form-label" for="inputEmail">Email</label>
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="name@example.com" required>
@@ -27,7 +59,6 @@
             </div>
         </form>
     </div>
-    <script src="../src/Data/Users.js" type="text/javascript"></script>
     <script src="../scripts/loginScript.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

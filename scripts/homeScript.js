@@ -2,18 +2,24 @@ const tutosContainer = document.getElementById("tutos-container");
 const TutosList = Tutos;
 const tutoModal = document.getElementById('tuto-modal');
 var tutosShown = TutosList.filter((tt)=>tt.showTuto == true);
-
+var activeUser;
 if(localStorage.getItem('user')==null){
     if(localStorage.getItem('userEmail')==null){
         alert("Tienes que iniciar sesión para visualizar las publicaciones.")
         window.location = "login.php";
     }else{
         let Lemail = localStorage.getItem('userEmail');
-        let userId = JSON.parse(localStorage.getItem("users")).filter((u)=>u.email == Lemail)[0].id;
+        activeUser = JSON.parse(localStorage.getItem("users")).filter((u)=>u.email == Lemail)[0];
+        let userId = activeUser.id;
         localStorage.setItem('user',userId.toString());
         localStorage.removeItem('userEmail');
+        document.getElementById('admin-view').style.display = activeUser.role == "admin"? 'flex':'none';
     }
+}else{
+    activeUser = JSON.parse(localStorage.getItem("users")).filter((u)=>u.id == localStorage.getItem('user'))[0];
+    document.getElementById('admin-view').style.display = activeUser.role == "admin"? 'flex':'none';
 }
+
 function showTutos(){
     if(tutosShown.length==0)
         alert("No hay Tutos publicados aún, se el primero en hacerlo");
@@ -34,7 +40,6 @@ function showTutos(){
 }
 function openTuto(tutoid){
     let curTuto = tutosShown.filter((tt)=>tt.id == tutoid)[0];
-    alert('opening '+curTuto.id);
     let uDate = new Date(curTuto.uploadDate);
     let lUpdate = new Date(curTuto.lastUpdate);
     let tutoContent;
