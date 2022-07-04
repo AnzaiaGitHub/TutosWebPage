@@ -1,11 +1,11 @@
 const tutosContainer = document.getElementById("tutos-container");
 const TutosList = Tutos;
 const tutoModal = document.getElementById("tuto-modal");
-const activeUser = Users.filter((us)=>us.id == JSON.parse(localStorage.getItem('user')))[0];
+const activeUser = JSON.parse(localStorage.getItem('users')).filter((us)=>us.id.toString() == localStorage.getItem('user'))[0];
 var tutosShown = TutosList.filter((tt)=>tt.author == JSON.parse(localStorage.getItem('user')));
 document.getElementById("LogOut").addEventListener('click', LogOut);
 if(localStorage.getItem('user')==null){
-    window.location = "login.html";
+    window.location = "login.php";
 }else{
     fillUserFields();
 }
@@ -65,6 +65,6 @@ function fillUserFields(){
 }
 function LogOut(){
     localStorage.clear();
-    window.location="login.html";
+    window.location="login.php";
 }
 window.addEventListener('load', showTutos);

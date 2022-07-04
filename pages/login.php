@@ -23,7 +23,7 @@
             </div>
             <div class="mb-3 btn-container">
                 <button class="btn btn-primary" type="button" onclick="login()">LogIn</button>
-                <button class="btn btn-secondary" type="button" onclick="location='register.html'">Registrar</button>
+                <button class="btn btn-secondary" type="button" onclick="location='register.php'">Registrar</button>
             </div>
         </form>
     </div>

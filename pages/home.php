@@ -1,3 +1,22 @@
+<?php
+    $server = "localhost"; //127.0.0.1
+    $user = "root";
+    $pass = "";
+
+    try{
+        $connection = new PDO("mysql:host=$server;dbname=TutosWeb", $user, $pass);
+        $connection -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT `id`,`email` from `users`;";
+        $Query = $connection-> prepare($sql);
+        $Query->execute();
+        $res = $Query->fetchAll();
+        echo "<script> localStorage.setItem('users',JSON.stringify(".json_encode($res)."));</script>";
+    }catch(PDOException $err){
+        echo "We can't connect with the db<br>";
+        echo $err;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -37,7 +56,7 @@
     <nav class="bottom-navbar">
         <ul class="navbar-ul">
             <li class="navbar-item">
-                <a href="newtuto.html">
+                <a href="newtuto.php">
                     <svg viewBox="0 0 448 448" xmlns="http://www.w3.org/2000/svg">
                         <path
                         d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"
@@ -46,7 +65,7 @@
                 </a>
             </li>
             <li class="navbar-item navbar-active">
-                <a href="home.html">
+                <a href="home.php">
                     <svg
                     id="Layer_1"
                     enable-background="new 0 0 100 100"
@@ -62,7 +81,7 @@
             </a>
         </li>
         <li class="navbar-item">
-            <a href="user.html">
+            <a href="user.php">
                 <svg
                 version="1.1"
                 id="Layer_1"

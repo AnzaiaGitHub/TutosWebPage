@@ -1,11 +1,18 @@
 const tutosContainer = document.getElementById("tutos-container");
 const TutosList = Tutos;
 const tutoModal = document.getElementById('tuto-modal');
-var tutosShown = TutosList.filter((tt)=>tt.show == true);
+var tutosShown = TutosList.filter((tt)=>tt.showTuto == true);
 
 if(localStorage.getItem('user')==null){
-    alert("Tienes que iniciar sesión para visualizar las publicaciones.")
-    window.location = "login.html";
+    if(localStorage.getItem('userEmail')==null){
+        alert("Tienes que iniciar sesión para visualizar las publicaciones.")
+        window.location = "login.php";
+    }else{
+        let Lemail = localStorage.getItem('userEmail');
+        let userId = JSON.parse(localStorage.getItem("users")).filter((u)=>u.email == Lemail)[0].id;
+        localStorage.setItem('user',userId.toString());
+        localStorage.removeItem('userEmail');
+    }
 }
 function showTutos(){
     if(tutosShown.length==0)

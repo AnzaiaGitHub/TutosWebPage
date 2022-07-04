@@ -10,7 +10,7 @@ const Tutos =[
         "imagesrc" : "../src/Data/tutosIMG/Nym001.jpeg",
         "uploadDate" : Date.parse("2022-07-03T12:04:01.112Z"),
         "lastUpdate" : Date.parse("2022-07-03T12:04:01.112Z"),
-        "show" : true, //true - false
+        "showTuto" : true, //true - false
     },
     {
         "id" : "Pfa001",
@@ -23,7 +23,7 @@ const Tutos =[
         "imagesrc" : "../src/Data/tutosIMG/Pla001.jpeg",
         "uploadDate" : Date.parse("2022-06-03T08:00:01.112Z"),
         "lastUpdate" : Date.parse("2022-07-03T14:47:01.112Z"),
-        "show" : true, //true - false
+        "showTuto" : true, //true - false
     },
     {
         "id" : "FeN001",
@@ -36,7 +36,7 @@ const Tutos =[
         "imagesrc" : "../src/Data/tutosIMG/FeN001.jpeg",
         "uploadDate" : Date.parse("2022-04-03T18:00:05.112Z"),
         "lastUpdate" : Date.parse("2022-07-03T16:49:01.112Z"),
-        "show" : true, //true - false
+        "showTuto" : true, //true - false
     },
     {
         "id" : "Ptz001",
@@ -49,6 +49,6 @@ const Tutos =[
         "imagesrc" : "https://i.ytimg.com/vi/M-yZMVa-TeI/maxresdefault.jpg",
         "uploadDate" : Date.parse("2022-04-03T18:00:05.112Z"),
         "lastUpdate" : Date.parse("2022-07-03T16:49:01.112Z"),
-        "show" : true, //true - false
+        "showTuto" : true, //true - false
     }
 ];
