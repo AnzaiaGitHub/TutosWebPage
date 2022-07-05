@@ -1,6 +1,7 @@
 const tutosContainer = document.getElementById("tutos-container");
-const TutosList = Tutos;
+const TutosList = JSON.parse(localStorage.getItem('tutos'));
 const tutoModal = document.getElementById('tuto-modal');
+const Users = JSON.parse(localStorage.getItem("users"));
 var tutosShown = TutosList.filter((tt)=>tt.showTuto == true);
 var activeUser;
 if(localStorage.getItem('user')==null){
@@ -9,20 +10,20 @@ if(localStorage.getItem('user')==null){
         window.location = "login.php";
     }else{
         let Lemail = localStorage.getItem('userEmail');
-        activeUser = JSON.parse(localStorage.getItem("users")).filter((u)=>u.email == Lemail)[0];
+        activeUser = Users.filter((u)=>u.email == Lemail)[0];
         let userId = activeUser.id;
         localStorage.setItem('user',userId.toString());
         localStorage.removeItem('userEmail');
         document.getElementById('admin-view').style.display = activeUser.role == "admin"? 'flex':'none';
     }
 }else{
-    activeUser = JSON.parse(localStorage.getItem("users")).filter((u)=>u.id == localStorage.getItem('user'))[0];
+    activeUser = Users.filter((u)=>u.id == localStorage.getItem('user'))[0];
     document.getElementById('admin-view').style.display = activeUser.role == "admin"? 'flex':'none';
 }
 
 function showTutos(){
     if(tutosShown.length==0)
-        alert("No hay Tutos publicados aún, se el primero en hacerlo");
+    tutosContainer.innerHTML="No hay tutos publicados aún, ¿qué tal si eres el primero?.";
     else{
         //Hay tutos disponibles
         tutosContainer.innerHTML="";

@@ -8,7 +8,7 @@ if(localStorage.getItem('user')!= null || localStorage.getItem('userEmail')!=nul
     if(localStorage.getItem('user')==null){
         let userId = JSON.parse(localStorage.getItem("users")).filter((us)=>us.email == localStorage.getItem('userEmail'))[0].id;
         localStorage.setItem('user', userId);
-        // localStorage.removeItem('userEmail');
+        localStorage.removeItem('userEmail');
     }
     window.location= "home.php";
 }

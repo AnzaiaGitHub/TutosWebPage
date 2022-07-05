@@ -6,11 +6,18 @@
     try{
         $connection = new PDO("mysql:host=$server;dbname=TutosWeb", $user, $pass);
         $connection -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
         $sql = "SELECT `id`,`email`,`username`,`role` from `users`;";
         $Query = $connection-> prepare($sql);
         $Query->execute();
         $res = $Query->fetchAll();
         echo "<script> localStorage.setItem('users',JSON.stringify(".json_encode($res)."));</script>";
+
+        $sql = "SELECT * from `tutos`;";
+        $Query = $connection-> prepare($sql);
+        $Query->execute();
+        $res = $Query->fetchAll();
+        echo "<script> localStorage.setItem('tutos',JSON.stringify(".json_encode($res)."));</script>";
     }catch(PDOException $err){
         echo "We can't connect with the db<br>";
         echo $err;

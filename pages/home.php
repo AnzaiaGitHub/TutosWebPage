@@ -11,8 +11,14 @@
         $Query->execute();
         $res = $Query->fetchAll();
         echo "<script> localStorage.setItem('users',JSON.stringify(".json_encode($res)."));</script>";
+
+        $sql = "SELECT * from `tutos`;";
+        $Query = $connection-> prepare($sql);
+        $Query->execute();
+        $res = $Query->fetchAll();
+        echo "<script> localStorage.setItem('tutos',JSON.stringify(".json_encode($res)."));</script>";
     }catch(PDOException $err){
-        echo "We can't connect with the db<br>";
+        echo "<script>alert('We can't connect with the db');</script>";
         echo $err;
     }
 ?>
@@ -126,8 +132,6 @@
     </div>
     <div id="tuto-modal" class="tuto-modal">
     </div>
-    <script type="text/javascript" src="../src/Data/Users.js"></script>
-    <script type="text/javascript" src="../src/Data/Tutos.js"></script>
     <script type="text/javascript" src="../scripts/homeScript.js"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

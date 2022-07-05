@@ -1,20 +1,79 @@
 <?php
-    $server = "localhost"; //127.0.0.1
-    $user = "root";
-    $pass = "";
-
-    try{
-        $connection = new PDO("mysql:host=$server;dbname=TutosWeb", $user, $pass);
-        $connection -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT `id`,`email`,`username`,`role` from `users`;";
-        $Query = $connection-> prepare($sql);
+  $server = "localhost"; //127.0.0.1
+  $user = "root";
+  $pass = "";
+  $final_content;
+  $final_preview;
+  try{
+      $connection = new PDO("mysql:host=$server;dbname=TutosWeb", $user, $pass);
+      $connection -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT `id`,`email`,`username`,`role` from `users`;";
+      $Query = $connection-> prepare($sql);
+      $Query->execute();
+      $res = $Query->fetchAll();
+      echo "<script> localStorage.setItem('users',JSON.stringify(".json_encode($res)."));</script>";
+      if(!empty($_FILES['preview']['name'])){
+        insertImage("preview");
+        if(!empty($_FILES['content']['name'])){
+          insertImage("content");
+        }else{
+          global $final_content;
+          $final_content = $_POST['content'];
+        }
+        global $final_content;
+        global $final_preview;
+        if(isset($_POST['showTuto'])){
+          $sql = "INSERT INTO `tutos`(`author`, `title`, `sDesc`, `lDesc`, `type`, `content`, `imagesrc`, `uploadDate`, `lastUpdate`, `showTuto`, `showBy`) VALUES (".$_POST['author'].",'".$_POST['title']."','".$_POST['sDesc']."','".$_POST['lDesc']."','".$_POST['type']."','".$final_content."','".$final_preview."','".$_POST['uploadDate']."','".$_POST['lastUpdate']."','".$_POST['showTuto']."','".$_POST['showBy']."')";
+        }else{
+          $sql = "INSERT INTO `tutos`(`author`, `title`, `sDesc`, `lDesc`, `type`, `content`, `imagesrc`, `uploadDate`, `lastUpdate`, `showTuto`, `showBy`) VALUES (".$_POST['author'].",'".$_POST['title']."','".$_POST['sDesc']."','".$_POST['lDesc']."','".$_POST['type']."','".$final_content."','".$final_preview."','".$_POST['uploadDate']."','".$_POST['lastUpdate']."','0','".$_POST['showBy']."')";
+        }
+        $Query = $connection -> prepare($sql);
         $Query->execute();
-        $res = $Query->fetchAll();
-        echo "<script> localStorage.setItem('users',JSON.stringify(".json_encode($res)."));</script>";
-    }catch(PDOException $err){
-        echo "We can't connect with the db<br>";
-        echo $err;
+        echo "<script>alert('Se ha creado el tutorial sobre: ".$_POST['title']."')</script>";
+      }
+  }catch(PDOException $err){
+      echo "<script>
+      alert('No se pudo conectar con la base de datos'+'$err');
+      </script>";
+  }
+  
+  function insertImage($tipo_imagen){
+    if(empty($_FILES[$tipo_imagen]["name"])){
+      return; //No file uploading
     }
+    $file_name = $_FILES[$tipo_imagen]["name"];
+    $extension = pathinfo($_FILES[$tipo_imagen]["name"], PATHINFO_EXTENSION);
+    $ext_formatos = array('png','jpg','gif','jpeg','pdf');
+
+    if(!in_array(strtolower($extension),$ext_formatos)){
+      echo "Format not allowed";
+      return; //format not allowed
+    }
+    
+    if($_FILES[$tipo_imagen]["size"] > 33000003008000){
+      echo "Image size too long";
+      return; //size too long
+    }
+    $targetDir = "../src/Data/tutosIMG/";
+    @rmdir($targetDir);
+    if(!file_exists($targetDir)){
+      @mkdir($targetDir,077,true);
+    }
+    $token = md5(uniqid(rand(), true));
+    $file_name = $token.'.'.$extension;
+    $add = $targetDir.$file_name;
+    $db_url_img = "$targetDir/$file_name";
+    if(move_uploaded_file($_FILES[$tipo_imagen]["tmp_name"],$add)){
+      //image uploaded and set route or sql query
+      if($tipo_imagen == "preview"){
+        global $final_preview;
+        $final_preview = $db_url_img;
+      }else{
+        global $final_content;
+        $final_content = $db_url_img;
+      }
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -42,28 +101,47 @@
     </header>
     <div class="side-divisor">
       <main>
-        <form id="newtuto-form" method="POST">
+        <form action="newtuto.php" id="newtuto-form" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
-              <label class="form-label" for="inputUsername">Username</label>
-              <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Carl123" required>
+              <label class="form-label" for="inputTitle">Titulo</label>
+              <input type="text" name="title" id="inputTitle" class="form-control" placeholder="Como hacer pan de horno" required>
           </div>
           <div class="mb-3">
-              <label class="form-label" for="inputEmail">Email</label>
-              <input type="email" name="email" id="inputEmail" class="form-control" placeholder="name@example.com" required>
+            <label class="form-label" for="inputType">Tipo de contenido</label>
+            <select name="type" id="inputType">
+              <option value="image">Imagen</option>
+              <option value="video">Video</option>
+              <option value="text">Texto</option>
+            </select>
+          </div>
+          <div class="mb-3" id="tutoContent">
+              <label class="form-label" for="inputContent">Contenido</label>
+              <input type="file" name="content" id="inputContent" class="form-control" placeholder="image.jpg" required>
+          </div>
+          <div class="mb-3">
+              <label class="form-label" for="inputPreview">Imagen de previsualización</label>
+              <input type="file" name="preview" id="inputPreview" class="form-control" placeholder="PrevImage.jpg" required>
           </div>
           <div class="mb-3">    
-              <label class="form-label" for="inputPassword">Contraseña</label>
-              <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+              <label class="form-label" for="inputSDescription">Descripcion corta</label>
+              <textarea name="sDesc" id="inputSDescription" class="form-control" placeholder="Descripción corta del tutorial" required></textarea>
+          </div>
+          <div class="mb-3">    
+              <label class="form-label" for="inputLDescription">Descripcion completa</label>
+              <textarea name="lDesc" id="inputLDescription" class="form-control" placeholder="Descripción completa y detallada del tutorial"></textarea>
           </div>
           <div class="form-check mb-3">    
-              <input type="checkbox" name="userRole" id="inputRole" class="form-check-input" value="admin">
-              <label class="form-check-label" for="inputRole">Cuenta de administrador</label>
+              <input type="checkbox" name="showTuto" id="inputShow" class="form-check-input" value="1" checked>
+              <label class="form-check-label" for="inputShow">Contenido público</label>
           </div>
-          <div class="mb-3 btn-container">
-              <button class="btn btn-primary" type="button" onclick="register()">Crear cuenta</button>
-              <span>
-                  ¿Ya tienes una cuenta?, intenta ir a <a href="login.php" class="btn-link">LogIn</a>
-              </span>
+          <div id="newTuto-hide-inputs">
+              <input name="uploadDate" type="text" id="uploadDate" required>
+              <input name="lastUpdate" type="text" id="lastUpdate" required>
+              <input name="showBy" type="text" id="showBy" required>
+              <input name="author" type="text" id="author" required>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-primary" type="button" onclick="createTuto()">Publicar</button>
           </div>
         </form>
       </main>
@@ -136,8 +214,6 @@
               </li>
           </ul>
         </nav>
-    </div>
-    <div id="tuto-modal" class="tuto-modal">
     </div>
     <script type="text/javascript" src="../scripts/newTutoScript.js"></script>
     <script

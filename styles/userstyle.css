@@ -92,6 +92,7 @@ main{
     overflow: hidden;
 }
 .tuto-modal>.tuto-item{
+    position: relative;
     width: 70%;
     min-width: 400px;
     height: 90vh;
@@ -99,10 +100,11 @@ main{
     flex-direction: column;
     align-items: flex-start;
     background-color: #aad;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 40px;
 }
-.tuto-modal>.tuto-item>img{
+.tuto-modal .tuto-item .imageSrc{
     width: 80%;
     align-self: center;
 }
@@ -114,14 +116,31 @@ main{
     align-self: center;
     min-height: 400px;
 }
-.tuto-modal>#closeModal{
-    position: absolute;
-    top: 0;
-    right: 10vw;
-    font-size: 2rem;
-    color: white;
+#editTuto-hide-inputs{
+    display: none;
+}
+
+#tuto-side-editor{
+    position: relative;
+    align-self: flex-start;
+    top: 5%;
+    right: 0;
+    width: fit-content;
+    font-size: 1.6rem;
     cursor: pointer;
-}.tuto-modal>#closeModal:hover{color: blue}
+    text-align: center;
+    border-radius: 0 15px 15px 0;
+    overflow: hidden;
+}
+#tuto-side-editor>div{
+    background-color: rgb(92, 112, 148);
+    color: white;
+    padding: 5px;
+    transition: 0.2s all ease;
+}
+#tuto-side-editor>div:hover{
+    background-color: rgb(0,0,100);
+}
 
 #userTutos{
     border-bottom: none;
